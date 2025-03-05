@@ -4,12 +4,9 @@ import com.kitec.quizlec.entity.User;
 import com.kitec.quizlec.exception.UserNotFoundException;
 import com.kitec.quizlec.repository.UserRepository;
 import jakarta.transaction.Transactional;
-import org.hibernate.annotations.CurrentTimestamp;
 import org.springframework.stereotype.Service;
 
 import java.time.Instant;
-import java.time.LocalDateTime;
-import java.time.ZoneOffset;
 import java.util.List;
 import java.util.Optional;
 
