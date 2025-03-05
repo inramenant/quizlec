@@ -12,6 +12,6 @@ import java.util.Optional;
 @Repository
 public interface LectureRepository extends JpaRepository<Lecture, Long> {
     Optional<Lecture> findByTitle(String title);
-    @Query("SELECT LectureMedia FROM LectureMedia WHERE LectureMedia.lectureId =:id")
+    @Query("SELECT lm FROM LectureMedia lm WHERE lm.lectureId =:id")
     List<LectureMedia> getLectureMediaById(Long id);
 }

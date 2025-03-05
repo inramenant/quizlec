@@ -39,7 +39,6 @@ public class UserService {
                 .orElseThrow(() -> new UserNotFoundException(id));
         user.setUsername(updatedUser.getUsername());
         user.setPassword(updatedUser.getPassword());
-        user.setRole(updatedUser.getRole());
         user.setEmail(updatedUser.getEmail());
         user.setUpdatedAt(Instant.now());
 
