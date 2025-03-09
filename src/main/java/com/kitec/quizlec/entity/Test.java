@@ -7,6 +7,7 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import java.time.Instant;
+import java.util.Set;
 
 @Entity
 @Getter
@@ -36,6 +37,9 @@ public class Test {
 
     @Column(name = "updated_at")
     private Instant updatedAt;
+
+    @OneToMany(mappedBy = "test", fetch = FetchType.LAZY)
+    private Set<TestSubmissions> submissions;
 
     @PrePersist
     protected void onCreate() {

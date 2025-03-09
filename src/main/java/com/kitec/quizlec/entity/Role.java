@@ -22,6 +22,6 @@ public class Role {
     @Column(name = "rolename", nullable = false)
     private String roleName;
 
-    @ManyToMany(mappedBy = "roles")
+    @ManyToMany(mappedBy = "roles", fetch = FetchType.LAZY)
     private Set<User> users;
 }

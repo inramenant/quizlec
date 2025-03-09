@@ -36,7 +36,7 @@ public class User {
     @Column(name = "updated_at")
     private Instant updatedAt;
 
-    @ManyToMany(fetch = FetchType.EAGER)
+    @ManyToMany(fetch = FetchType.LAZY)
     @JoinTable(
             name = "user_roles",
             joinColumns = @JoinColumn(name = "user_id"),
@@ -44,8 +44,17 @@ public class User {
     )
     private Set<Role> roles;
 
-    @OneToMany(fetch = FetchType.LAZY, mappedBy = "createdBy", orphanRemoval = true)
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "createdBy")
     private Set<Lecture> createdLectures;
+
+    @OneToOne(mappedBy = "user")
+    private UserActivation activation;
+
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "createdBy")
+    private Set<Test> createdTests;
+
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "user")
+    private Set<TestSubmissions> submittedTests;
 
     @PrePersist
     protected void onCreate() {

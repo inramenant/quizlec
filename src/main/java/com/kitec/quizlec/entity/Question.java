@@ -6,6 +6,8 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+import java.util.Set;
+
 @Entity
 @Getter
 @Setter
@@ -31,4 +33,11 @@ public class Question {
 
     @Column(name = "order_index")
     private int orderIndex;
+
+    @OneToMany(mappedBy = "question", fetch = FetchType.EAGER)
+    private Set<AnswerOptions> answerOptions;
+
+    @OneToMany(mappedBy = "question", fetch = FetchType.LAZY)
+    private Set<SubmissionAnswers> submissionAnswers;
+
 }

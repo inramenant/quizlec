@@ -7,6 +7,7 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import java.time.Instant;
+import java.util.Set;
 
 @Entity
 @Getter
@@ -33,6 +34,9 @@ public class TestSubmissions {
 
     @Column(name = "score")
     private Integer score;
+
+    @OneToMany(mappedBy = "submission")
+    private Set<SubmissionAnswers> submissionAnswersSet;
 
     @PrePersist
     protected void onCreate() {

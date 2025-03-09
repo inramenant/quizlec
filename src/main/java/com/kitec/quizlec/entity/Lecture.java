@@ -7,6 +7,7 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import java.time.Instant;
+import java.util.Set;
 
 @Entity
 @Getter
@@ -37,7 +38,8 @@ public class Lecture {
     @Column(name = "updated_at")
     private Instant updatedAt;
 
-
+    @OneToMany(mappedBy = "LectureId")
+    private Set<LectureMedia> lectureMediaSet;
     @PrePersist
     protected void onCreate() {
         this.createdAt = Instant.now();
