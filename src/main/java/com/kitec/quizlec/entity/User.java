@@ -47,7 +47,7 @@ public class User {
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "createdBy")
     private Set<Lecture> createdLectures;
 
-    @OneToOne(mappedBy = "user")
+    @OneToOne(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true)
     private UserActivation activation;
 
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "createdBy")
@@ -60,6 +60,10 @@ public class User {
     protected void onCreate() {
         createdAt = Instant.now();
         updatedAt = Instant.now();
+        if (activation == null) {
+            activation = new UserActivation(this);
+            activation.setUser(this);
+        }
     }
 
     @PreUpdate

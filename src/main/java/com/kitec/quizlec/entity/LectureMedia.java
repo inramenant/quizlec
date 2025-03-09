@@ -20,7 +20,7 @@ public class LectureMedia {
 
     @ManyToOne
     @JoinColumn(name = "lecture_id", nullable = false)
-    private Lecture lectureId;
+    private Lecture lecture;
 
     @Column(name = "media_type", nullable = false)
     private String mediaType;

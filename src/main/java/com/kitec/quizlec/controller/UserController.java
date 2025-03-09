@@ -4,13 +4,11 @@ package com.kitec.quizlec.controller;
 import com.kitec.quizlec.entity.User;
 import com.kitec.quizlec.service.UserService;
 import io.swagger.v3.oas.annotations.Operation;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import io.swagger.v3.oas.annotations.tags.Tag;
 
 import java.util.List;
-import java.util.Optional;
 
 @RestController
 @RequestMapping("/users")
@@ -37,6 +35,30 @@ public class UserController {
                 .orElseGet(() -> ResponseEntity.notFound().build());
     }
 
+    @GetMapping("/search/{username}")
+    @Operation(summary = "Get user by Username", description = "Fetch an user by Username")
+    public ResponseEntity<User> getUserByUsername(@PathVariable String username) {
+        return userService.getUserByUsername(username)
+                .map(ResponseEntity::ok)
+                .orElseGet(() -> ResponseEntity.notFound().build());
+    }
+
+    @GetMapping("/search_email/{email}")
+    @Operation(summary = "Get user by Email", description = "Fetch an user by Email")
+    public ResponseEntity<User> getUserByEmail(@PathVariable String email) {
+        return userService.getUserByEmail(email)
+                .map(ResponseEntity::ok)
+                .orElseGet(() -> ResponseEntity.notFound().build());
+    }
+
+    @GetMapping("/is_activated/{id}")
+    @Operation(summary = "Check if user is activated", description = "Fetch an information that user is activates by ID")
+    public ResponseEntity<Boolean> isUserActivated(@PathVariable Long id) {
+        return userService.isUserActivated(id)
+                .map(ResponseEntity::ok)
+                .orElseGet(() -> ResponseEntity.notFound().build());
+    }
+
     @PostMapping
     @Operation(summary = "Create User", description = "Add a new user to DB")
     public ResponseEntity<User> createUser(@RequestBody User user) {
@@ -53,7 +75,7 @@ public class UserController {
     @Operation(summary = "Delete user", description = "Remove an user by ID")
     public ResponseEntity<User> deleteUser(@PathVariable Long id) {
         userService.deleteUser(id);
-        return ResponseEntity.ok().build();
+        return ResponseEntity.noContent().build();
     }
 
 

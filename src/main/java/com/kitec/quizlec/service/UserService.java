@@ -1,6 +1,8 @@
 package com.kitec.quizlec.service;
 
+import com.kitec.quizlec.entity.Lecture;
 import com.kitec.quizlec.entity.User;
+import com.kitec.quizlec.entity.UserActivation;
 import com.kitec.quizlec.exception.UserNotFoundException;
 import com.kitec.quizlec.repository.UserRepository;
 import jakarta.transaction.Transactional;
@@ -28,6 +30,9 @@ public class UserService {
     }
 
     public User createUser(User user) {
+        UserActivation activation = new UserActivation();
+        activation.setUser(user);
+        user.setActivation(activation);
         return userRepository.save(user);
     }
 
@@ -45,4 +50,22 @@ public class UserService {
     public void deleteUser(Long id) {
         userRepository.deleteById(id);
     }
+
+    public Optional<User> getUserByUsername(String username) {
+        return userRepository.findByUsername(username);
+    }
+
+    public Optional<User> getUserByEmail(String email) {
+        return userRepository.findByEmail(email);
+    }
+
+    public Optional<Boolean> isUserActivated(Long id) {
+        return userRepository.isActivatedById(id);
+    }
+
+    public Optional<List<Lecture>> getLectures(Long userId) {
+        return userRepository.CreatedLecturesById(userId);
+    }
+
+
 }

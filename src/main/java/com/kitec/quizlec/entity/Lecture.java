@@ -7,7 +7,8 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import java.time.Instant;
-import java.util.Set;
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 @Getter
@@ -29,20 +30,23 @@ public class Lecture {
     private String description;
 
     @ManyToOne
-    @JoinColumn(name = "created_by")
+    @JoinColumn(name = "created_by", nullable = false)
     private User createdBy;
 
-    @Column(name = "created_at")
+    @Column(name = "created_at", nullable = false, updatable = false)
     private Instant createdAt;
 
-    @Column(name = "updated_at")
+    @Column(name = "updated_at", nullable = false)
     private Instant updatedAt;
 
-    @OneToMany(mappedBy = "LectureId")
-    private Set<LectureMedia> lectureMediaSet;
+    @OneToMany(mappedBy = "lecture")
+    private List<LectureMedia> lectureMediaList = new ArrayList<>();
+
     @PrePersist
     protected void onCreate() {
-        this.createdAt = Instant.now();
+        if(createdAt == null) {
+            this.createdAt = Instant.now();
+        }
         this.updatedAt = Instant.now();
     }
 
